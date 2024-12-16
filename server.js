@@ -29,6 +29,10 @@ const initializeApp = async () => {
     try {
         await connectDB();
         console.log('Database connected successfully');
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         await runMigrations();
     } catch (error) {
         console.error('Failed to initialize app:', error.message);
@@ -38,5 +42,9 @@ const initializeApp = async () => {
 
 app.listen(PORT, async () => {
     console.log(`Server running on http://localhost:${PORT}`);
+<<<<<<< Updated upstream
     await initializeApp();
+=======
+    await initializeApp(); 
+>>>>>>> Stashed changes
 });

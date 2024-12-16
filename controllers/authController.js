@@ -11,6 +11,10 @@ export const register = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         const user = await User.create({ username, password: hashedPassword, role });
 
         res.status(201).json({ message: 'User registered successfully', user });
@@ -22,7 +26,10 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { username, password } = req.body;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         const user = await User.findOne({ where: { username } });
         if (!user) return res.status(404).json({ message: 'User not found' });
 
