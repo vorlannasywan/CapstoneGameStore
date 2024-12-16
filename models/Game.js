@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/db');
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/db.js';
 
 const Game = sequelize.define('Game', {
     id: {
@@ -24,7 +24,7 @@ const Game = sequelize.define('Game', {
         allowNull: false,
     },
     releaseYear: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     description: {
@@ -35,4 +35,4 @@ const Game = sequelize.define('Game', {
     timestamps: true,
 });
 
-module.exports = Game;
+export default Game;

@@ -1,6 +1,6 @@
-const Game = require('../models/Game');
+import Game from '../models/Game.js';
 
-exports.createGame = async (req, res) => {
+export const createGame = async (req, res) => {
     try {
         const { title, genre, price, developer, releaseYear, description } = req.body;
 
@@ -19,7 +19,7 @@ exports.createGame = async (req, res) => {
     }
 };
 
-exports.getAllGames = async (req, res) => {
+export const getAllGames = async (req, res) => {
     try {
         const games = await Game.findAll();
         res.status(200).json(games);
@@ -28,7 +28,7 @@ exports.getAllGames = async (req, res) => {
     }
 };
 
-exports.getGameById = async (req, res) => {
+export const getGameById = async (req, res) => {
     try {
         const game = await Game.findByPk(req.params.id);
         if (!game) return res.status(404).json({ message: 'Game not found' });
@@ -38,7 +38,37 @@ exports.getGameById = async (req, res) => {
     }
 };
 
-exports.updateGame = async (req, res) => {
+export const getGamesByGenre = async (req, res) => {
+    try {
+        const { genre } = req.query;
+        const games = await Game.findAll({ where: { genre } });
+
+        if (games.length === 0) {
+            return res.status(404).json({ message: 'No games found for the specified genre' });
+        }
+
+        res.status(200).json(games);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const getGamesByYear = async (req, res) => {
+    try {
+        const { releaseYear } = req.query;
+        const games = await Game.findAll({ where: { releaseYear } });
+
+        if (games.length === 0) {
+            return res.status(404).json({ message: 'No games found for the specified release Year' });
+        }
+
+        res.status(200).json(games);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const updateGame = async (req, res) => {
     try {
         const game = await Game.findByPk(req.params.id);
         if (!game) return res.status(404).json({ message: 'Game not found' });
@@ -53,8 +83,7 @@ exports.updateGame = async (req, res) => {
     }
 };
 
-
-exports.deleteGame = async (req, res) => {
+export const deleteGame = async (req, res) => {
     try {
         const game = await Game.findByPk(req.params.id);
         if (!game) return res.status(404).json({ message: 'Game not found' });
